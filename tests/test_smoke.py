@@ -3,7 +3,7 @@ import os
 import requests
 
 
-BASE_URL = os.getenv("KVD_BASE_URL")
+BASE_URL = os.getenv("KVD_BASE_URL", "https://kvdinsurance.com")
 
 
 def test_homepage_is_reachable():
