@@ -12,8 +12,22 @@ def test_quote_api_rejects_malformed_json():
         headers={"Content-Type": "application/json"},
         timeout=10,
     )
+    
+    print("Status:", response.status_code)
+    print("Response:", response.text)
+    assert response.status_code == 400
+
+def test_quote_api_rejects_missing_required_fields():
+    response = requests.post(
+        f"{BASE_URL}/api/quote",
+        json={
+            "name": "",
+            "email": "",
+        },
+        timeout=10,
+    )
 
     print("Status:", response.status_code)
     print("Response:", response.text)
-    
+
     assert response.status_code == 400
