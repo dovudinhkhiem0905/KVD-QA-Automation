@@ -1,69 +1,72 @@
-# KVD Insurance Group QA Automation
+# KVD QA Automation
 
-Public QA portfolio project for testing the KVD Insurance Group web application.
+Automated QA tests for the KVD Insurance website and quote API.
 
-## Current scope
+## Current Coverage
 
-- Manual QA test plan
-- Smoke testing with Python + pytest + requests
-- API testing (next)
-- UI automation with Playwright (later)
-- CI with GitHub Actions (later)
+- Homepage smoke test
+- Malformed JSON API validation
+- Required quote field validation
+- Production and localhost testing
 
 ## Setup
 
-1. Create a Python virtual environment:
+Create and activate a virtual environment:
 
-   ```bash
-   python -m venv .venv
-   ```
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
 
-2. Activate it:
+Install dependencies:
 
-   macOS/Linux:
+```bash
+pip install -r requirements.txt
+```
 
-   ```bash
-   source .venv/bin/activate
-   ```
+## Run Tests
 
-   Windows PowerShell:
+Run against production:
 
-   ```powershell
-   .venv\Scripts\Activate.ps1
-   ```
+```bash
+pytest -v
+```
 
-3. Install dependencies:
+Run against local development:
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+KVD_BASE_URL=http://localhost:3000 pytest -v
+```
 
-4. Set the URL of the KVD site you want to test:
+## Project Structure
 
-   macOS/Linux:
+```text
+tests/
+  test_smoke.py
+  test_quote_api.py
 
-   ```bash
-   export KVD_BASE_URL="https://your-kvd-site.com"
-   ```
+bug_reports/
+  BUG-001-malformed-json-returns-500.md
+```
 
-   Windows PowerShell:
+## Configuration
 
-   ```powershell
-   $env:KVD_BASE_URL="https://your-kvd-site.com"
-   ```
+The test suite uses the `KVD_BASE_URL` environment variable when provided.
 
-5. Run the tests:
+If no environment variable is set, the tests default to:
 
-   ```bash
-   pytest -v
-   ```
+```text
+https://kvdinsurance.com
+```
 
-## First automated test
+## Purpose
 
-`tests/test_smoke.py` checks that the configured KVD homepage:
+This project is used to practice and demonstrate QA workflows including:
 
-- is reachable
-- returns HTTP 200
-- contains the expected `KVD Insurance` text
-
-The base URL is intentionally configurable so the same test suite can target a local, staging, or deployed version of the application without hard-coding a production URL.
+- Functional testing
+- API testing
+- Negative testing
+- Regression testing
+- Bug reporting
+- Local vs production verification
+- Git branching and pull request workflows
